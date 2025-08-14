@@ -17,7 +17,7 @@ Contains results from **RANS simulations** with **adiabatic wall conditions** of
 ---
 
 ## 📂 2. Diabatic
-Contains **averaged data across turbulence models** for different **T_rat values**.
+Contains results from **RANS simulations** with **diabatic wall conditions** of the blade.
 
 ### Internal structure
 - Subfolders for each **T_rat value**:
