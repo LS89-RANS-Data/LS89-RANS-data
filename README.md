@@ -9,14 +9,17 @@ Contains results for **adiabatic wall conditions**.
 
 ### Structure
 - The top-level folders correspond to the **quantities of interest**, which can be **averaged** or **individual**.  
-- The quantities available in this repository are:
+- The quantities available for the adiabatic case are:
+  - `Friction_coefficient`
   - `Friction_coefficient_mean`
   - `Mach_is_mean`
+  - `Mach_is`
   - `Turbulent_kinetic_energy`
-  - `Wake_density`
-  - `Wake_temperature`
+  - `Turbulent_kinetic_energy_mean`
   - `Wake_total_pressure`
+  - `Wake_total_pressure_mean`
   - `Wall_pressure_mean`
+  - `Wall_pressure`
 - Inside each quantity folder:
   - Data is organized by **turbulence model** and **MUR case** (43, 45, 47 → high-subsonic and transonic).
 - Files typically contain **mean values** and **standard deviations** across turbulence models.
@@ -34,8 +37,14 @@ Contains results for **diabatic wall conditions**.
 - First, select the **T_rat value** (0.5 → 1.0):
   - `T_rat_0.5`, `T_rat_0.6`, …, `T_rat_1.0`
 - Inside each `T_rat` folder, the structure mirrors the adiabatic case:
-  - Top-level folders for the **quantities of interest** (averaged or individual, same list as above)
-  - Inside each quantity folder: **turbulence model** and **MUR case**.
+  - `Friction_coefficient_mean`
+  - `Heat_coefficient_mean`  
+  - `Mach_is_mean`
+  - `Turbulent_kinetic_energy_mean`
+  - `Wake_density`
+  - `Wake_temperature`
+  - `Wake_total_pressure_mean`
+  - `Wall_pressure_mean`
 
 ### Example file path
 
