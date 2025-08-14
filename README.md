@@ -14,7 +14,7 @@ Contains results for **adiabatic wall conditions**.
 - Files typically contain **mean values** and **standard deviations** across turbulence models.
 
 ### Example file path
-Adiabatic\Wall_pressure_mean\MUR43_P_stat_mean_std.txt
+Adiabatic\Wall_pressure_mean\MUR43_P_wall_mean_std.txt
 
 ---
 
