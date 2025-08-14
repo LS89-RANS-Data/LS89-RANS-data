@@ -1,39 +1,41 @@
 # Data Structure of the Repository
 
-This repository contains CFD simulation data for the study of a turbine blade, organized into two main folders:
+This repository contains **RANS simulation data** for a turbine blade, for both **adiabatic** and **diabatic wall conditions**.
+
+---
 
 ## 📂 1. Adiabatic
-Contains results from **RANS simulations** with **adiabatic wall conditions** of the blade.
+Contains results for **adiabatic wall conditions**.
 
-### Internal structure
-- Data is divided by **turbulence model** and **MUR case**:
-  - **MUR 43, 45, 47** → high-subsonic and transonic cases.
-  - **Turbulence models**:
-    - `k-omega-SST`
-    - `k-epsilon realizable`
-    - `k-omega-SST-gamma`
-- For each MUR, in addition to the individual model data, files with **averages across turbulence models** are also included.
+### Structure
+- The top-level folders correspond to the **quantities of interest**, which can be **averaged** or **individual**.
+- Inside each quantity folder:
+  - Data is organized by **turbulence model** and **MUR case** (43, 45, 47 → high-subsonic and transonic).
+- Files typically contain **mean values** and **standard deviations** across turbulence models.
+
+### Example file path
+Adiabatic\Wall_pressure_mean\MUR43_P_stat_mean_std.txt
 
 ---
 
 ## 📂 2. Diabatic
-Contains results from **RANS simulations** with **diabatic wall conditions** of the blade.
+Contains results for **diabatic wall conditions**.
 
-### Internal structure
-- Subfolders for each **T_rat value**:
-  - `T_rat_0.5`
-  - `T_rat_0.6`
-  - `T_rat_0.7`
-  - `T_rat_0.8`
-  - `T_rat_0.9`
-  - `T_rat_1.0`
-- Each folder contains the **averaged data** for the MUR cases (43, 45, 47).
+### Structure
+- First, select the **T_rat value** (0.5 → 1.0):
+  - `T_rat_0.5`, `T_rat_0.6`, …, `T_rat_1.0`
+- Inside each `T_rat` folder, the structure mirrors the adiabatic case:
+  - Top-level folders for the **quantities of interest** (averaged or individual)
+  - Inside each quantity folder: **turbulence model** and **MUR case**.
+
+### Example file path
+Diabatic\T_rat_0.6\Friction_coefficient_mean\MUR47_cf_mean_std.txt
 
 ---
 
 ## 📝 Notes
-- Averages are computed across the turbulence models `k-omega-SST`, `k-epsilon realizable`, and `k-omega-SST-gamma`.
-- Typical files include:
-  - Normalized coordinates (`y/t`,`s/c`)
-  - Quantities of interest (e.g., normalized total pressure)
+- Averages are computed across turbulence models: `k-omega-SST`, `k-epsilon realizable`, `k-omega-SST-gamma`.
+- Typical files contain:
+  - Normalized coordinates (`y/t`, `s/c`)
+  - Quantities of interest (e.g., total pressure, friction coefficient)
   - Mean and standard deviation across turbulence models
