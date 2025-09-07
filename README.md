@@ -117,31 +117,104 @@ Diabatic/T\_rat\_0.6/Wall\_pressure\_mean/
 
 ---
 
-## 📖 Example Plot (Python)
+### 📊 Example 1: Plot Wall Pressure (Adiabatic case)
 
 ```python
+#!/usr/bin/env python3
+"""
+Plot wall pressure coefficient for LS89 - Adiabatic case
+"""
+
+import pandas as pd
 import matplotlib.pyplot as plt
 
-plt.errorbar(df["s/c"], df["Pressure_mean"], yerr=df["Pressure_std"], 
-             fmt="-o", capsize=3, label="MUR43")
+# Load one or more datasets (Adiabatic / Wall_pressure_mean)
+files = {
+    "k-epsilon (MUR43)": "Adiabatic/Wall_pressure_mean/K-epsilon_MUR43_P_wall_mean_std.txt",
+    "k-omega-SST (MUR43)": "Adiabatic/Wall_pressure_mean/K-omega-SST_MUR43_P_wall_mean_std.txt",
+    "k-omega-SST-int. (MUR43)": "Adiabatic/Wall_pressure_mean/K-omega-SST-intermittency_MUR43_P_wall_mean_std.txt",
+}
+
+plt.figure(figsize=(8, 6))
+
+for label, fname in files.items():
+    df = pd.read_csv(fname, delim_whitespace=True, header=None,
+                     names=["s/c", "Cp_mean", "Cp_std"])
+    plt.errorbar(df["s/c"], df["Cp_mean"], yerr=df["Cp_std"],
+                 fmt="-o", capsize=3, label=label)
 
 plt.xlabel("s/c (normalized)")
 plt.ylabel("Wall Pressure Coefficient")
-plt.title("LS89 Adiabatic Wall Pressure")
+plt.title("LS89 Adiabatic - Wall Pressure Distribution")
+plt.grid(True, linestyle="--", alpha=0.6)
 plt.legend()
-plt.grid(True)
+plt.tight_layout()
 plt.show()
 ```
 
 ---
 
-## 🚀 Future Enhancements
+### 📊 Example 2: Compare Temperature Ratios (Diabatic case)
 
-* 📑 **Documentation folder** (`/docs`) with details about simulation setup and data validation
-* 📊 **Pre-made plots** showcasing comparisons across turbulence models and MUR cases
-* 📝 **Jupyter notebooks** with ready-to-run scripts for loading and visualizing the data
+```python
+#!/usr/bin/env python3
+"""
+Compare wall pressure for different T_rat in Diabatic cases
+"""
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Example: wall pressure at MUR45, different T_rat values
+base = "Diabatic/T_rat_{}/Wall_pressure_mean/K-epsilon_MUR45_P_wall_mean_std.txt"
+
+t_rat_values = ["0.5", "0.7", "1.0"]
+
+plt.figure(figsize=(8, 6))
+
+for T in t_rat_values:
+    fname = base.format(T)
+    df = pd.read_csv(fname, delim_whitespace=True, header=None,
+                     names=["s/c", "Cp_mean", "Cp_std"])
+    plt.errorbar(df["s/c"], df["Cp_mean"], yerr=df["Cp_std"],
+                 fmt="-o", capsize=3, label=f"T_rat = {T}")
+
+plt.xlabel("s/c (normalized)")
+plt.ylabel("Wall Pressure Coefficient")
+plt.title("LS89 Diabatic - Wall Pressure vs T_rat")
+plt.grid(True, linestyle="--", alpha=0.6)
+plt.legend()
+plt.tight_layout()
+plt.show()
+```
 
 ---
+
+### 📦 README.md snippet to include
+
+At the end of the README, you could add:
+
+````markdown
+## 📊 Example Plots
+
+We provide ready-to-use Python scripts in the `examples/` folder to help visualize the data:
+
+- **Wall Pressure (Adiabatic)** → `examples/plot_wall_pressure.py`
+- **Temperature Ratio Comparison (Diabatic)** → `examples/plot_trat_comparison.py`
+
+Each script uses `pandas` and `matplotlib` and produces error-bar plots with mean and standard deviation.
+
+Run them directly after cloning:
+```bash
+python examples/plot_wall_pressure.py
+python examples/plot_trat_comparison.py
+````
+
+---
+
+```
+
+
 
 ## ✨ Summary
 
