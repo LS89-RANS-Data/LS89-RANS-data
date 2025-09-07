@@ -190,30 +190,6 @@ plt.show()
 
 ---
 
-### 📦 README.md snippet to include
-
-At the end of the README, you could add:
-
-````markdown
-## 📊 Example Plots
-
-We provide ready-to-use Python scripts in the `examples/` folder to help visualize the data:
-
-- **Wall Pressure (Adiabatic)** → `examples/plot_wall_pressure.py`
-- **Temperature Ratio Comparison (Diabatic)** → `examples/plot_trat_comparison.py`
-
-Each script uses `pandas` and `matplotlib` and produces error-bar plots with mean and standard deviation.
-
-Run them directly after cloning:
-```bash
-python examples/plot_wall_pressure.py
-python examples/plot_trat_comparison.py
-````
-
----
-
-```
-
 
 
 ## ✨ Summary
