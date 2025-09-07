@@ -13,44 +13,73 @@ The data includes detailed statistics from multiple turbulence models, enabling 
 | **Diabatic** 🔥 | Grouped by **temperature ratio** (`T_rat_0.5` → `T_rat_1.0`) → then by quantity | Friction coefficient, Heat coefficient, Mach number, TKE, wake quantities, wall pressure |
 
 ---
+Perfect 👌 thanks for the screenshot! Now it’s clear: each **quantity directory** (like `Adiabatic/Mach_is`) directly contains **flat text files**, named by turbulence model + MUR case. No extra subfolders.
 
-## 🔹 1. Adiabatic Conditions
+Here’s how I’d improve the README directory description to reflect the real tree:
 
-- **Quantities**:
-  - `Friction_coefficient`
-  - `Mach_is`
-  - `Turbulent_kinetic_energy`
-  - `Wake_total_pressure`
-  - `Wall_pressure`
+---
 
-- **Example directory structure**:
+## 📂 Repository Structure
+
+The repository is organized by **thermal condition** → **quantity of interest** → **simulation files**.
+
+### 🔹 Adiabatic Conditions (`Adiabatic/`)
+
+- Each subfolder corresponds to a physical quantity (e.g., `Mach_is`, `Wall_pressure`, `Turbulent_kinetic_energy`).
+- Inside each folder, you’ll find **one text file per turbulence model and MUR case**.
+
+📁 Example (`Adiabatic/Mach_is/`):
 ```
 
-Adiabatic/
-├── Wall\_pressure\_mean/
-│   ├── MUR43\_P\_wall\_mean\_std.txt
-│   ├── MUR45\_P\_wall\_mean\_std.txt
-│   └── MUR47\_P\_wall\_mean\_std.txt
+Adiabatic/Mach\_is/
+├── K-epsilon\_MUR43\_M\_is.txt
+├── K-epsilon\_MUR45\_M\_is.txt
+├── K-epsilon\_MUR47\_M\_is.txt
+├── K-omega-SST\_MUR43\_M\_is.txt
+├── K-omega-SST\_MUR45\_M\_is.txt
+├── K-omega-SST\_MUR47\_M\_is.txt
+├── K-omega-SST-intermittency\_MUR43\_M\_is.txt
+├── K-omega-SST-intermittency\_MUR45\_M\_is.txt
+└── K-omega-SST-intermittency\_MUR47\_M\_is.txt
 
 ```
 
 ---
 
-## 🔹 2. Diabatic Conditions
+### 🔹 Diabatic Conditions (`Diabatic/`)
 
-- **Organized by wall-to-recovery temperature ratio**:  
-`T_rat_0.5`, `T_rat_0.6`, …, `T_rat_1.0`
+- First grouped by wall-to-recovery **temperature ratio** (`T_rat_0.5`, `T_rat_0.6`, …, `T_rat_1.0`).
+- Inside each `T_rat_*` folder, data is further split by **quantity** (e.g., `Friction_coefficient_mean`, `Wall_pressure_mean`).
+- Each quantity folder contains one file per turbulence model and MUR case, following the same naming convention.
 
-- **Example directory structure**:
+📁 Example (`Diabatic/T_rat_0.6/Wall_pressure_mean/`):
 ```
 
-Diabatic/
-├── T\_rat\_0.6/
-│   ├── Friction\_coefficient\_mean/MUR47\_cf\_mean\_std.txt
-│   ├── Heat\_coefficient\_mean/MUR45\_ch\_mean\_std.txt
-│   └── Wake\_total\_pressure\_mean/MUR43\_pt\_mean\_std.txt
+Diabatic/T\_rat\_0.6/Wall\_pressure\_mean/
+├── K-epsilon\_MUR43\_P\_wall\_mean\_std.txt
+├── K-epsilon\_MUR45\_P\_wall\_mean\_std.txt
+├── K-epsilon\_MUR47\_P\_wall\_mean\_std.txt
+├── K-omega-SST\_MUR43\_P\_wall\_mean\_std.txt
+├── K-omega-SST\_MUR45\_P\_wall\_mean\_std.txt
+├── K-omega-SST\_MUR47\_P\_wall\_mean\_std.txt
+├── K-omega-SST-intermittency\_MUR43\_P\_wall\_mean\_std.txt
+├── K-omega-SST-intermittency\_MUR45\_P\_wall\_mean\_std.txt
+└── K-omega-SST-intermittency\_MUR47\_P\_wall\_mean\_std.txt
 
-````
+```
+
+---
+
+✅ **Key points:**
+- **Top-level split**: `Adiabatic/` vs. `Diabatic/`
+- **Adiabatic** → quantity folders → direct files per turbulence model + MUR case
+- **Diabatic** → temperature ratio folders → quantity folders → direct files per turbulence model + MUR case
+
+---
+
+Would you like me to now **integrate this polished tree description into the full upgraded README.md with emojis, usage, and example code**, so you can replace the file directly?
+```
+
 
 ---
 
