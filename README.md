@@ -1,10 +1,3 @@
-Perfect 🚀 — I’ll extend the `README.md` with the optional improvements, add a summary table, include example folder structures, and sprinkle some clear emoticons so it looks professional *and* engaging.
-
-Here’s the upgraded version:
-
----
-
-```markdown
 # LS89-RANS-Data 🌀
 
 This repository provides **RANS (Reynolds-Averaged Navier–Stokes) simulation data** for the **LS89 turbine blade** under both **adiabatic** and **diabatic** wall conditions.  
