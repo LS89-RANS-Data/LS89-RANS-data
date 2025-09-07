@@ -1,61 +1,56 @@
-# Data Structure of the Repository
-
-This repository contains **RANS simulation data** for a turbine blade, for both **adiabatic** and **diabatic wall conditions**.
 
 ---
 
-## 📂 1. Adiabatic
-Contains results for **adiabatic wall conditions**.
+##  Notes
 
-### Structure
-- The top-level folders correspond to the **quantities of interest**, which can be **averaged** or **individual**.  
-- The quantities available for the adiabatic case are:
-  - `Friction_coefficient`
-  - `Friction_coefficient_mean`
-  - `Mach_is_mean`
-  - `Mach_is`
-  - `Turbulent_kinetic_energy`
-  - `Turbulent_kinetic_energy_mean`
-  - `Wake_total_pressure`
-  - `Wake_total_pressure_mean`
-  - `Wall_pressure_mean`
-  - `Wall_pressure`
-- Inside each quantity folder:
-  - Data is organized by **turbulence model** and **MUR case** (43, 45, 47 → high-subsonic and transonic).
-- Files typically contain **mean values** and **standard deviations** across turbulence models.
+- Averages are computed across three turbulence models:
+- `k-omega-SST`
+- `k-epsilon realizable`
+- `k-omega-SST-gamma`
 
-### Example file path
-
-Adiabatic\Wall_pressure_mean\MUR43_P_wall_mean_std.txt
+- **Data files** generally contain:
+- **Normalized coordinates**: (`y/t`, `s/c`)
+- **Quantities of interest** (as listed above)
+- Both **mean** and **standard deviation** across turbulence models
 
 ---
 
-## 📂 2. Diabatic
-Contains results for **diabatic wall conditions**.
+##  Usage & Recommendations
 
-### Structure
-- First, select the **T_rat value** (0.5 → 1.0):
-  - `T_rat_0.5`, `T_rat_0.6`, …, `T_rat_1.0`
-- Inside each `T_rat` folder, the structure mirrors the adiabatic case:
-  - `Friction_coefficient_mean`
-  - `Heat_coefficient_mean`  
-  - `Mach_is_mean`
-  - `Turbulent_kinetic_energy_mean`
-  - `Wake_density`
-  - `Wake_temperature`
-  - `Wake_total_pressure_mean`
-  - `Wall_pressure_mean`
+1. **Navigating the data**  
+ - For adiabatic cases: explore under `Adiabatic/[quantity]_mean` directories.  
+ - For diabatic cases: navigate via `Diabatic/T_rat_[value]/[quantity]_mean`.
 
-### Example file path
+2. **Reading the files**  
+ - Files are often tab-delimited or whitespace-separated.  
+ - Typical columns include: normalized coordinates, mean values, standard deviations—check the first few rows or header for specifics.
 
-Diabatic\T_rat_0.6\Friction_coefficient_mean\MUR47_cf_mean_std.txt
+3. **Further processing**  
+ - Use scripting tools (e.g., Python with `numpy` or `pandas`) to parse and visualize the data.  
+ - Help future users by including a small example script or Jupyter notebook (optional).
 
 ---
 
-## 📝 Notes
-- Averages are computed across turbulence models: `k-omega-SST`, `k-epsilon realizable`, `k-omega-SST-gamma`.
-- Typical files contain:
-  - Normalized coordinates (`y/t`, `s/c`)
-  - Quantities of interest (as listed above)
-  - Mean and standard deviation across turbulence models
+##  Potential Enhancements (Optional)
+
+- **README Extension**: Add a table summarizing contents, example files, or folder structure.
+- **Documentation Folder**: Consider adding a `docs/` directory explaining how data was generated or validated.
+- **Example Visualizations**: Include plots of wall pressure or Mach number distributions to illustrate typical outputs.
+- **Usage Notebook**: Provide a Jupyter notebook demonstrating how to read data, compare models, or visualize results.
+
+---
+
+##  Summary
+
+- **Project purpose**: RANS data for LS89 turbine blade (adiabatic + diabatic).
+- **Organization**:
+- `Adiabatic/`: grouped by quantity, MUR cases, turbulence models.
+- `Diabatic/`: first grouped by temperature ratio, then following adiabatic structure.
+- **Contents**: normalized coordinates, mean and standard deviation for each quantity.
+- **Suggestions**: Improve ease of use with examples, summaries, and visual aids.
+
+---
+
+**Let me know** if you'd like help generating an example visualization (e.g., using Python) or drafting a sample Jupyter notebook to accompany the README!
+::contentReference[oaicite:0]{index=0}
 
