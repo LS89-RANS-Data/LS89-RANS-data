@@ -1,34 +1,31 @@
 # LS89-RANS-Data 🌀
 
-This repository provides **RANS (Reynolds-Averaged Navier–Stokes) simulation data** for the **LS89 turbine blade** under both **adiabatic** and **diabatic** wall conditions.  
-The data includes detailed statistics from multiple turbulence models, enabling comparative analysis, benchmarking, and further research.
+RANS (Reynolds-Averaged Navier–Stokes) simulation data for the **LS89 turbine blade**, available under both **adiabatic** and **diabatic** wall conditions. Encompasses results from multiple turbulence models to support comparative analysis and validation efforts.
 
 ---
 
-## 📂 Repository Structure
+##  Table of Contents
 
-| Condition   | Organization | Available Quantities |
-|-------------|--------------|-----------------------|
-| **Adiabatic** 🌡️ | Grouped by **quantity** → turbulence model → MUR cases (MUR43, MUR45, MUR47) | Friction coefficient, Mach number, TKE, total pressure, wall pressure |
-| **Diabatic** 🔥 | Grouped by **temperature ratio** (`T_rat_0.5` → `T_rat_1.0`) → then by quantity | Friction coefficient, Heat coefficient, Mach number, TKE, wake quantities, wall pressure |
+- [Repository Structure](#repository-structure)
+  - [Adiabatic Conditions](#adiabatic-conditions)
+  - [Diabatic Conditions](#diabatic-conditions)
+- [Data Description](#data-description)
+- [Usage Examples](#usage-examples)
+  - [Plotting Scripts](#plotting-scripts)
+- [Contributing](#contributing)
+- [License](#license)
+- [Credits & Contact](#credits--contact)
 
 ---
-Perfect 👌 thanks for the screenshot! Now it’s clear: each **quantity directory** (like `Adiabatic/Mach_is`) directly contains **flat text files**, named by turbulence model + MUR case. No extra subfolders.
 
-Here’s how I’d improve the README directory description to reflect the real tree:
+##  Repository Structure
 
----
+The repository is organized based on wall condition, physical quantity, and simulation parameters.
 
-## 📂 Repository Structure
+### Adiabatic Conditions (`Adiabatic/`)
 
-The repository is organized by **thermal condition** → **quantity of interest** → **simulation files**.
+Each quantity—such as `Mach_is`, `Wall_pressure`, `Turbulent_kinetic_energy`—has its own folder, and each folder contains files named per turbulence model and MUR case:
 
-### 🔹 Adiabatic Conditions (`Adiabatic/`)
-
-- Each subfolder corresponds to a physical quantity (e.g., `Mach_is`, `Wall_pressure`, `Turbulent_kinetic_energy`).
-- Inside each folder, you’ll find **one text file per turbulence model and MUR case**.
-
-📁 Example (`Adiabatic/Mach_is/`):
 ```
 
 Adiabatic/Mach\_is/
@@ -44,15 +41,10 @@ Adiabatic/Mach\_is/
 
 ```
 
----
+### Diabatic Conditions (`Diabatic/`)
 
-### 🔹 Diabatic Conditions (`Diabatic/`)
+Organized first by **temperature ratio** folder (`T_rat_0.5`, `T_rat_0.6`, …), then by quantity, each containing similarly named files:
 
-- First grouped by wall-to-recovery **temperature ratio** (`T_rat_0.5`, `T_rat_0.6`, …, `T_rat_1.0`).
-- Inside each `T_rat_*` folder, data is further split by **quantity** (e.g., `Friction_coefficient_mean`, `Wall_pressure_mean`).
-- Each quantity folder contains one file per turbulence model and MUR case, following the same naming convention.
-
-📁 Example (`Diabatic/T_rat_0.6/Wall_pressure_mean/`):
 ```
 
 Diabatic/T\_rat\_0.6/Wall\_pressure\_mean/
@@ -66,69 +58,45 @@ Diabatic/T\_rat\_0.6/Wall\_pressure\_mean/
 ├── K-omega-SST-intermittency\_MUR45\_P\_wall\_mean\_std.txt
 └── K-omega-SST-intermittency\_MUR47\_P\_wall\_mean\_std.txt
 
-```
-
----
-
-✅ **Key points:**
-- **Top-level split**: `Adiabatic/` vs. `Diabatic/`
-- **Adiabatic** → quantity folders → direct files per turbulence model + MUR case
-- **Diabatic** → temperature ratio folders → quantity folders → direct files per turbulence model + MUR case
-
----
-
-## 📊 Data Details
-
-- **Turbulence models averaged**:
-- `k-omega-SST`
-- `k-epsilon realizable`
-- `k-omega-SST-gamma`
-
-- **File contents**:
-- Normalized coordinates (e.g., `y/t`, `s/c`)
-- Mean values  
-- Standard deviations across turbulence models
-
----
-
-## ⚙️ Usage Recommendations
-
-1. **Navigation**  
- - Adiabatic cases: check `Adiabatic/[quantity]_mean`  
- - Diabatic cases: check `Diabatic/T_rat_[value]/[quantity]_mean`
-
-2. **Reading data**  
- - Files are whitespace-separated text files.  
- - Columns typically: coordinates → mean → std.  
-
- ✅ Example (Python + Pandas):  
- ```python
- import pandas as pd
-
- df = pd.read_csv("Adiabatic/Wall_pressure_mean/MUR43_P_wall_mean_std.txt",
-                  delim_whitespace=True, header=None,
-                  names=["s/c", "Pressure_mean", "Pressure_std"])
-
- print(df.head())
 ````
 
-3. **Visualization**
-   You can easily plot distributions (e.g., pressure coefficient, Mach profiles) with `matplotlib`.
+**Key structure highlights:**
+
+- Top-level: `Adiabatic/` vs. `Diabatic/`
+- **Adiabatic** → quantity folders → files per model + MUR case
+- **Diabatic** → temperature ratio → quantity folders → files per model + MUR case
 
 ---
 
-### 📊 Example 1: Plot Wall Pressure (Adiabatic case)
+##  Data Description
+
+- Supported turbulence models:  
+  - `k-epsilon`  
+  - `k-omega-SST`  
+  - `k-omega-SST-intermittency`
+
+- Filenames include identifiers for MUR cases (e.g., MUR43, MUR45, MUR47) and denote mean and standard deviation where applicable.
+
+- Each text file is whitespace-delimited and contains columns like:  
+  - normalized coordinate (`s/c`, `y/t`, etc.)  
+  - statistical quantity (e.g., Mach isentropic, pressure coefficient)  
+  - standard deviation across models (in mean/std files)
+
+---
+
+##  Usage Examples
+
+### Plotting Scripts
+
+Example Python scripts are available in the `examples/` folder:
+
+1. **Adiabatic Wall Pressure Plot**
 
 ```python
-#!/usr/bin/env python3
-"""
-Plot wall pressure coefficient for LS89 - Adiabatic case
-"""
-
+# examples/plot_wall_pressure.py
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Load one or more datasets (Adiabatic / Wall_pressure_mean)
 files = {
     "k-epsilon (MUR43)": "Adiabatic/Wall_pressure_mean/K-epsilon_MUR43_P_wall_mean_std.txt",
     "k-omega-SST (MUR43)": "Adiabatic/Wall_pressure_mean/K-omega-SST_MUR43_P_wall_mean_std.txt",
@@ -145,29 +113,21 @@ for label, fname in files.items():
 
 plt.xlabel("s/c (normalized)")
 plt.ylabel("Wall Pressure Coefficient")
-plt.title("LS89 Adiabatic - Wall Pressure Distribution")
+plt.title("LS89 Adiabatic – Wall Pressure Distribution")
 plt.grid(True, linestyle="--", alpha=0.6)
 plt.legend()
 plt.tight_layout()
 plt.show()
-```
+````
 
----
-
-### 📊 Example 2: Compare Temperature Ratios (Diabatic case)
+2. **Diabatic Comparison Across Temperature Ratios**
 
 ```python
-#!/usr/bin/env python3
-"""
-Compare wall pressure for different T_rat in Diabatic cases
-"""
-
+# examples/plot_trat_comparison.py
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Example: wall pressure at MUR45, different T_rat values
 base = "Diabatic/T_rat_{}/Wall_pressure_mean/K-epsilon_MUR45_P_wall_mean_std.txt"
-
 t_rat_values = ["0.5", "0.7", "1.0"]
 
 plt.figure(figsize=(8, 6))
@@ -181,32 +141,48 @@ for T in t_rat_values:
 
 plt.xlabel("s/c (normalized)")
 plt.ylabel("Wall Pressure Coefficient")
-plt.title("LS89 Diabatic - Wall Pressure vs T_rat")
+plt.title("LS89 Diabatic – Wall Pressure vs T_rat")
 plt.grid(True, linestyle="--", alpha=0.6)
 plt.legend()
 plt.tight_layout()
 plt.show()
 ```
 
----
+**Run these with:**
 
-
-
-## ✨ Summary
-
-This repository provides a **comprehensive RANS dataset** for the LS89 turbine blade under adiabatic and diabatic conditions.
-It is structured for easy access, with normalized coordinates, mean values, and standard deviations across turbulence models.
-
-🔍 Researchers can use it for **model validation, comparative studies, and uncertainty quantification**.
-
----
-
-💡 *Contributions, feedback, or derived visualizations are welcome — feel free to open an issue or PR!*
-
+```bash
+python examples/plot_wall_pressure.py
+python examples/plot_trat_comparison.py
 ```
 
 ---
 
-👉 Do you want me to also prepare a **ready-to-use Jupyter notebook** (`examples/plot_wall_pressure.ipynb`) so users can directly run and visualize the data after cloning the repo?
-```
+## 🤝 Contributing
+
+Contributions are warmly welcomed! Here’s how you can help:
+
+1. **Fork** the repo and create your feature branch (`git checkout -b feature/my-addition`)
+2. **Commit** your changes with clear messages
+3. **Push** to your branch (`git push origin feature/my-addition`)
+4. **Open a Pull Request**, describing your improvements
+5. Make sure to keep any existing **Python scripts**, **plots**, and **README formatting** consistent.
+
+---
+
+## License
+
+This project is released under the **[MIT License](./LICENSE)** — feel free to use, modify, and distribute it under these terms.
+
+---
+
+## Credits & Contact
+
+* Developed and maintained by the LS89-RANS-Data contributors.
+* For questions, issues, or feedback, feel free to open an issue or reach out on GitHub.
+
+**Happy exploring and visualizing!**
+
+````
+
+---
 
