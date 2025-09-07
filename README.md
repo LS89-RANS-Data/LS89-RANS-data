@@ -88,7 +88,7 @@ Diabatic/T\_rat\_0.6/Wall\_pressure\_mean/
 
 ### Plotting Scripts
 
-Example Python scripts are available in the `examples/` folder:
+Example Python scripts are available in the following boxes:
 
 1. **Adiabatic Wall Pressure Plot**
 
@@ -151,8 +151,8 @@ plt.show()
 **Run these with:**
 
 ```bash
-python examples/plot_wall_pressure.py
-python examples/plot_trat_comparison.py
+python plot_wall_pressure.py
+python plot_trat_comparison.py
 ```
 
 ---
@@ -183,6 +183,3 @@ This project is released under the **[MIT License](./LICENSE)** — feel free to
 **Happy exploring and visualizing!**
 
 ````
-
----
-
