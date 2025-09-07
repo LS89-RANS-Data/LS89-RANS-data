@@ -11,6 +11,9 @@ authors:
   - family-names: "Benini"
     given-names: "Ernesto"
     orcid: "https://orcid.org/0000-0002-5061-4284"   # ← replace with your ORCID if you want
+- family-names: "Fornasari"
+    given-names: "Davide"
+    orcid: "https://orcid.org/0009-0002-6818-5825"
 repository-code: "https://github.com/LS89-RANS-Data/LS89-RANS-data"
 license: "MIT"
 type: dataset
