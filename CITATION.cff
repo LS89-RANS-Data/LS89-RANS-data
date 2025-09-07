@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it as below."
+title: "LS89-RANS-Data: RANS simulation data for LS89 turbine blade under adiabatic and diabatic wall conditions"
+version: "1.0.0"
+date-released: 2025-09-07
+authors:
+  - family-names: "De Vanna"
+    given-names: "Francesco"
+    affiliation: "Department of Industrial Engineering, University of Padova"
+    orcid: "https://orcid.org/0000-0001-6627-5451"   # ← replace with your ORCID if you want
+  - family-names: "Benini"
+    given-names: "Ernesto"
+    orcid: "https://orcid.org/0000-0002-5061-4284"   # ← replace with your ORCID if you want
+repository-code: "https://github.com/LS89-RANS-Data/LS89-RANS-data"
+license: "MIT"
+type: dataset
+keywords:
+  - "RANS"
+  - "CFD"
+  - "Turbomachinery"
+  - "LS89"
+  - "Adiabatic"
+  - "Diabatic"
+  - "Turbulence models"
+
