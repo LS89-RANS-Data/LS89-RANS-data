@@ -169,13 +169,6 @@ Contributions are warmly welcomed! Here’s how you can help:
 
 ---
 
-## Corresponding Author
-
-For questions, dataset use, or collaboration inquiries, please contact:
-📧 **Francesco De Vanna** — [francesco.devanna@unipd.it](mailto:francesco.devanna@unipd.it)
-
----
-
 ## License
 
 This project is released under the **[MIT License](./LICENSE)** — feel free to use, modify, and distribute it under these terms.
@@ -186,6 +179,8 @@ This project is released under the **[MIT License](./LICENSE)** — feel free to
 
 * Developed and maintained by the LS89-RANS-Data contributors.
 * For questions, issues, or feedback, feel free to open an issue or reach out on GitHub.
+* For collaboration inquiries, please contact:
+📧 **Francesco De Vanna** — [francesco.devanna@unipd.it](mailto:francesco.devanna@unipd.it)
 
 **Happy exploring and visualizing!**
 
