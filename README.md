@@ -1,11 +1,10 @@
 # LS89-RANS-Data 🌀
 
-RANS (Reynolds-Averaged Navier–Stokes) simulation data for the **LS89 turbine blade**, available under both **adiabatic** and **diabatic** wall conditions. Encompasses results from multiple turbulence models to support comparative analysis and validation efforts.
+RANS (Reynolds-Averaged Navier–Stokes) simulation dataset for the **LS89 turbine blade**, under both **adiabatic** and **diabatic** wall conditions. Includes outputs from multiple turbulence models for comparative analyses and validation.
 
 ---
 
-##  Table of Contents
-
+## Table of Contents
 - [Repository Structure](#repository-structure)
   - [Adiabatic Conditions](#adiabatic-conditions)
   - [Diabatic Conditions](#diabatic-conditions)
@@ -14,17 +13,18 @@ RANS (Reynolds-Averaged Navier–Stokes) simulation data for the **LS89 turbine 
   - [Plotting Scripts](#plotting-scripts)
 - [Contributing](#contributing)
 - [License](#license)
-- [Credits & Contact](#credits--contact)
+- [Corresponding Author](#corresponding-author)
+- [Credits](#credits)
 
 ---
 
-##  Repository Structure
+## Repository Structure
 
-The repository is organized based on wall condition, physical quantity, and simulation parameters.
+Organized by thermal condition, then by physical quantity and simulation parameters.
 
 ### Adiabatic Conditions (`Adiabatic/`)
 
-Each quantity—such as `Mach_is`, `Wall_pressure`, `Turbulent_kinetic_energy`—has its own folder, and each folder contains files named per turbulence model and MUR case:
+Each quantity (e.g., `Mach_is`, `Wall_pressure`, `Turbulent_kinetic_energy`) has its own folder. Inside each, you'll find files named by turbulence model and MUR case:
 
 ```
 
@@ -43,7 +43,7 @@ Adiabatic/Mach\_is/
 
 ### Diabatic Conditions (`Diabatic/`)
 
-Organized first by **temperature ratio** folder (`T_rat_0.5`, `T_rat_0.6`, …), then by quantity, each containing similarly named files:
+First grouped by wall-to-recovery **temperature ratio** (`T_rat_0.5` … `T_rat_1.0`), then by quantity, each following the same model/MUR naming:
 
 ```
 
@@ -60,40 +60,35 @@ Diabatic/T\_rat\_0.6/Wall\_pressure\_mean/
 
 ````
 
-**Key structure highlights:**
-
-- Top-level: `Adiabatic/` vs. `Diabatic/`
-- **Adiabatic** → quantity folders → files per model + MUR case
-- **Diabatic** → temperature ratio → quantity folders → files per model + MUR case
+**Highlights:**
+- Top-level: `Adiabatic/` vs. `Diabatic/`.
+- Structure mirrors across conditions with consistent naming for turbulence models and MUR cases.
 
 ---
 
-##  Data Description
+## Data Description
 
-- Supported turbulence models:  
-  - `k-epsilon`  
-  - `k-omega-SST`  
+- **Turbulence models included:**
+  - `k-epsilon`
+  - `k-omega-SST`
   - `k-omega-SST-intermittency`
-
-- Filenames include identifiers for MUR cases (e.g., MUR43, MUR45, MUR47) and denote mean and standard deviation where applicable.
-
-- Each text file is whitespace-delimited and contains columns like:  
-  - normalized coordinate (`s/c`, `y/t`, etc.)  
-  - statistical quantity (e.g., Mach isentropic, pressure coefficient)  
-  - standard deviation across models (in mean/std files)
+- Filenames reflect MUR cases (43, 45, 47) and indicate whether they include mean and standard deviation (e.g., `_mean_std`).
+- Files are whitespace-delimited `.txt` and typically contain:
+  - Normalized coordinates (`s/c`, `y/t`, etc.)
+  - Quantity values (e.g., Mach isentropic, wall pressure coefficient)
+  - Standard deviations across models (in mean/std files)
 
 ---
 
-##  Usage Examples
+## Usage Examples
 
 ### Plotting Scripts
 
-Example Python scripts are available in the following boxes:
+Scripts available in the `examples/` folder:
 
-1. **Adiabatic Wall Pressure Plot**
+#### 1. Adiabatic Wall Pressure (`examples/plot_wall_pressure.py`)
 
 ```python
-# examples/plot_wall_pressure.py
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -102,15 +97,12 @@ files = {
     "k-omega-SST (MUR43)": "Adiabatic/Wall_pressure_mean/K-omega-SST_MUR43_P_wall_mean_std.txt",
     "k-omega-SST-int. (MUR43)": "Adiabatic/Wall_pressure_mean/K-omega-SST-intermittency_MUR43_P_wall_mean_std.txt",
 }
-
-plt.figure(figsize=(8, 6))
-
+plt.figure(figsize=(8,6))
 for label, fname in files.items():
     df = pd.read_csv(fname, delim_whitespace=True, header=None,
                      names=["s/c", "Cp_mean", "Cp_std"])
     plt.errorbar(df["s/c"], df["Cp_mean"], yerr=df["Cp_std"],
                  fmt="-o", capsize=3, label=label)
-
 plt.xlabel("s/c (normalized)")
 plt.ylabel("Wall Pressure Coefficient")
 plt.title("LS89 Adiabatic – Wall Pressure Distribution")
@@ -120,25 +112,20 @@ plt.tight_layout()
 plt.show()
 ````
 
-2. **Diabatic Comparison Across Temperature Ratios**
+#### 2. Diabatic Comparison (`examples/plot_trat_comparison.py`)
 
 ```python
-# examples/plot_trat_comparison.py
 import pandas as pd
 import matplotlib.pyplot as plt
 
 base = "Diabatic/T_rat_{}/Wall_pressure_mean/K-epsilon_MUR45_P_wall_mean_std.txt"
 t_rat_values = ["0.5", "0.7", "1.0"]
-
-plt.figure(figsize=(8, 6))
-
+plt.figure(figsize=(8,6))
 for T in t_rat_values:
-    fname = base.format(T)
-    df = pd.read_csv(fname, delim_whitespace=True, header=None,
+    df = pd.read_csv(base.format(T), delim_whitespace=True, header=None,
                      names=["s/c", "Cp_mean", "Cp_std"])
     plt.errorbar(df["s/c"], df["Cp_mean"], yerr=df["Cp_std"],
                  fmt="-o", capsize=3, label=f"T_rat = {T}")
-
 plt.xlabel("s/c (normalized)")
 plt.ylabel("Wall Pressure Coefficient")
 plt.title("LS89 Diabatic – Wall Pressure vs T_rat")
@@ -148,39 +135,51 @@ plt.tight_layout()
 plt.show()
 ```
 
-**Run these with:**
+**Run with:**
 
 ```bash
-python plot_wall_pressure.py
-python plot_trat_comparison.py
+python examples/plot_wall_pressure.py
+python examples/plot_trat_comparison.py
 ```
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
-Contributions are warmly welcomed! Here’s how you can help:
+We welcome your contributions! Please:
 
-1. **Fork** the repo and create your feature branch (`git checkout -b feature/my-addition`)
-2. **Commit** your changes with clear messages
-3. **Push** to your branch (`git push origin feature/my-addition`)
-4. **Open a Pull Request**, describing your improvements
-5. Make sure to keep any existing **Python scripts**, **plots**, and **README formatting** consistent.
+1. **Fork** the repository and create a new branch (`feature/your-change`).
+2. **Commit** changes with meaningful messages.
+3. **Push** your branch to GitHub.
+4. **Open a Pull Request** with a clear description of your change.
+
+Please maintain consistency in formatting and documentation.
 
 ---
 
 ## License
 
-This project is released under the **[MIT License](./LICENSE)** — feel free to use, modify, and distribute it under these terms.
+This dataset is released under the **BSD 3-Clause License (for datasets)**. See the [`LICENSE`](./LICENSE) file for details.
 
 ---
 
-## Credits & Contact
+## Corresponding Author
 
-* Developed and maintained by the LS89-RANS-Data contributors.
-* For questions, issues, or feedback, feel free to open an issue or reach out on GitHub.
-* For collaboration inquiries, please contact:
-📧 **Francesco De Vanna** — [francesco.devanna@unipd.it](mailto:francesco.devanna@unipd.it)
+For inquiries or collaboration, contact:
 
-**Happy exploring and visualizing!**
+**Francesco De Vanna** — [francesco.devanna@unipd.it](mailto:francesco.devanna@unipd.it)
+
+---
+
+## Credits
+
+Maintained by the **LS89-RANS-Data** contributors. If you use this dataset, please also consult our [`CITATION.cff`](./CITATION.cff) for proper citation.
+
+---
+
+**Happy exploring and analyzing!**
+
+```
+
+
 
