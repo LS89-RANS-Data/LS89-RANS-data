@@ -77,12 +77,6 @@ Diabatic/T\_rat\_0.6/Wall\_pressure\_mean/
 
 ---
 
-Would you like me to now **integrate this polished tree description into the full upgraded README.md with emojis, usage, and example code**, so you can replace the file directly?
-```
-
-
----
-
 ## 📊 Data Details
 
 - **Turbulence models averaged**:
