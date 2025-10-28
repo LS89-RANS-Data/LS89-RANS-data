@@ -4,14 +4,6 @@ RANS (Reynolds-Averaged Navier–Stokes) simulation dataset for the **LS89 turbi
 
 ---
 
-## Related Publication
-
-RANS-Based Aerothermal Database of the LS89 Transonic Turbine Cascade Under Adiabatic and Cooled Wall Conditions
-Davide Fornasari, Stefano Regazzo, Ernesto Benini, Francesco De Vanna.
-DOI: [link to the paper](https://doi.org/10.3390/en1010000.)
-
----
-
 ## Table of Contents
 - [Repository Structure](#repository-structure)
   - [Adiabatic Conditions](#adiabatic-conditions)
